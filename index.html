@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bonafont</title>
+<meta name="theme-color" content="#DEDED9">
+<script>document.documentElement.dataset.theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#DEDED9;
+    --ink:#1A1A1A;
+    --mute:color-mix(in srgb,var(--ink) 52%,var(--paper));
+    --line:color-mix(in srgb,var(--ink) 38%,var(--paper));
+    --dot:color-mix(in srgb,var(--ink) 28%,transparent);
+    --display:"Oswald","Arial Narrow",sans-serif;
+    --ui:"Quicksand","Nunito","Varela Round",sans-serif;
+    --write:"Quicksand","Nunito","Varela Round",sans-serif;
+    --grain-o:.07;--grain-b:multiply;
+    --gloss:radial-gradient(120% 70% at 30% 0%,rgba(255,255,255,.75),rgba(255,255,255,0) 55%);
+    --glass-bg:var(--gloss),linear-gradient(150deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.12) 40%,rgba(255,255,255,.05) 62%,rgba(255,255,255,.38) 100%);
+    --glass-dark:radial-gradient(120% 70% at 30% 0%,rgba(255,255,255,.3),rgba(255,255,255,0) 55%),linear-gradient(150deg,#3b3b3b,#151515);
+    --glass-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 -3px 6px rgba(26,26,26,.16),inset 1.5px 0 2px rgba(255,255,255,.5),inset -1.5px 0 2px rgba(255,255,255,.3),0 8px 16px -8px rgba(26,26,26,.5);
+    --pop-bg:linear-gradient(rgba(26,26,26,.08),rgba(26,26,26,.08)),rgba(255,255,255,.1);
+    --pop-shadow:inset 0 4px 9px rgba(26,26,26,.4),inset 0 -1px 0 rgba(255,255,255,.7),0 1px 3px -1px rgba(26,26,26,.3);
+    --dlg-tint:color-mix(in srgb,var(--paper) 52%,transparent);
+    --dlg-glass:var(--gloss),linear-gradient(150deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.1) 45%,rgba(255,255,255,.3) 100%);
+    --dlg-shadow:inset 0 2px 0 rgba(255,255,255,.95),inset 0 -4px 10px rgba(26,26,26,.12),inset 2px 0 3px rgba(255,255,255,.5),inset -2px 0 3px rgba(255,255,255,.3),0 24px 48px -16px rgba(26,26,26,.5);
+    color-scheme:light;
+  }
+  :root[data-theme="dark"]{
+    --paper:#151513;
+    --ink:#E4E4DE;
+    --mute:color-mix(in srgb,var(--ink) 64%,var(--paper));
+    --grain-o:.1;--grain-b:screen;
+    --gloss:radial-gradient(120% 70% at 30% 0%,rgba(255,255,255,.2),rgba(255,255,255,0) 55%);
+    --glass-bg:var(--gloss),linear-gradient(150deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.03) 40%,rgba(255,255,255,.02) 62%,rgba(255,255,255,.09) 100%);
+    --glass-dark:radial-gradient(120% 70% at 30% 0%,rgba(255,255,255,.7),rgba(255,255,255,0) 55%),linear-gradient(150deg,#ececE6,#b9b9b2);
+    --glass-shadow:inset 0 1.5px 0 rgba(255,255,255,.3),inset 0 -3px 6px rgba(0,0,0,.5),inset 1.5px 0 2px rgba(255,255,255,.1),inset -1.5px 0 2px rgba(255,255,255,.07),0 8px 16px -8px rgba(0,0,0,.85);
+    --pop-bg:linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),rgba(255,255,255,.04);
+    --pop-shadow:inset 0 4px 9px rgba(0,0,0,.75),inset 0 -1px 0 rgba(255,255,255,.18),0 1px 3px -1px rgba(0,0,0,.6);
+    --dlg-tint:color-mix(in srgb,var(--paper) 55%,transparent);
+    --dlg-glass:var(--gloss),linear-gradient(150deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.03) 45%,rgba(255,255,255,.1) 100%);
+    --dlg-shadow:inset 0 2px 0 rgba(255,255,255,.28),inset 0 -4px 10px rgba(0,0,0,.5),inset 2px 0 3px rgba(255,255,255,.1),inset -2px 0 3px rgba(255,255,255,.07),0 24px 48px -16px rgba(0,0,0,.9);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+  html,body{min-height:100%}
+  body{
+    min-height:100dvh;
+    background-color:var(--paper);
+    background-image:radial-gradient(circle,var(--dot) 1.1px,transparent 1.4px);
+    background-size:28px 28px;
+    background-position:14px 14px;
+    color:var(--ink);
+    font-family:var(--ui);
+    font-size:16px;
+    line-height:1.5;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:96px 24px 96px;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;opacity:var(--grain-o);mix-blend-mode:var(--grain-b);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8 .55' numOctaves='2' seed='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+  }
+
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:2;background:var(--paper);
+    border-bottom:1.5px solid var(--ink);
+    padding:max(14px,env(safe-area-inset-top)) 0 12px;display:flex;justify-content:center;
+  }
+  .logo{
+    font-family:var(--display);
+    font-weight:500;font-size:1.2rem;letter-spacing:.12em;line-height:1;
+    color:var(--ink);text-decoration:none;
+  }
+  .logo:focus-visible{outline:2px solid var(--ink);outline-offset:6px}
+
+  main{width:min(560px,100%);display:flex;flex-direction:column;gap:40px;position:relative}
+
+  .field{position:relative;padding-bottom:12px}
+  .field::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--ink)}
+  .field:focus-within::after{height:3px}
+  textarea{
+    width:100%;display:block;border:0;outline:0;resize:none;background:transparent;color:inherit;
+    font:400 clamp(26px,6vw,36px)/1.3 var(--write);
+    text-align:center;min-height:2.6em;caret-color:var(--ink);
+  }
+  textarea::placeholder{color:var(--mute);opacity:1;font-size:.7em;line-height:1.3}
+  .landmark{display:block;width:84px;margin:0 auto 16px;color:var(--ink)}
+  .landmark[hidden]{display:none}
+  .landmark svg{display:block;width:100%;height:auto}
+
+  /* ===== cristal líquido (todos los botones) ===== */
+  .glass{
+    position:relative;cursor:pointer;color:var(--ink);font-family:var(--ui);
+    border:1.25px solid color-mix(in srgb,var(--ink) 80%,transparent);
+    background:var(--glass-bg);
+    -webkit-backdrop-filter:blur(8px) saturate(1.3);backdrop-filter:blur(8px) saturate(1.3);
+    box-shadow:var(--glass-shadow);
+  }
+  .glass:hover,.glass:focus-visible{background:var(--glass-dark);color:var(--paper)}
+  .glass:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+  .glass:active{transform:scale(.94)}
+  .glass:disabled{color:var(--mute);border-color:var(--line);cursor:default;background:var(--glass-bg);opacity:.6}
+
+  /* ===== plataformas: circulares ===== */
+  .send{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;min-height:104px}
+  .send button{width:64px;height:64px;padding:0;border-radius:50%;display:grid;place-items:center}
+  .send button.is-best{width:96px;height:96px;border-width:2px}
+  .send svg{width:46%;height:46%;fill:currentColor;display:block;pointer-events:none}
+  .send button.glass[aria-disabled="true"]{color:var(--mute);border-color:var(--line);opacity:.6;cursor:default;background:var(--glass-bg)}
+  .send button.flash{animation:refresh .42s steps(1,end) 1}
+  @keyframes refresh{
+    0%{background:var(--ink);color:var(--paper)}
+    30%{background:var(--paper);color:var(--ink)}
+    55%{background:var(--ink);color:var(--paper)}
+    100%{background:var(--paper);color:var(--ink)}
+  }
+
+  /* ideas */
+  .ideas{display:flex;flex-direction:column;gap:8px;min-height:9em}
+  .ideas p{font-size:13px;color:var(--mute);margin-bottom:2px;font-weight:500}
+  .ideas button{text-align:left;font:400 16px/1.35 var(--ui);padding:12px 16px;border-radius:14px}
+
+  footer{
+    position:fixed;left:0;right:0;bottom:0;z-index:2;background:var(--paper);
+    border-top:1.5px solid var(--ink);
+    padding:10px 20px max(10px,env(safe-area-inset-bottom));
+    display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13px;min-height:52px;
+  }
+  footer span{color:var(--mute);font-weight:500}
+  footer button{font:500 13px var(--ui);padding:7px 14px;border-radius:12px;white-space:nowrap}
+
+  dialog{
+    margin:auto;width:min(460px,calc(100% - 32px));padding:28px;
+    border:1.5px solid color-mix(in srgb,var(--ink) 70%,transparent);border-radius:28px;
+    background-color:var(--dlg-tint);background-image:var(--dlg-glass);
+    -webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);
+    box-shadow:var(--dlg-shadow);color:var(--ink);font-family:var(--ui);
+  }
+  dialog::backdrop{
+    background-color:color-mix(in srgb,var(--paper) 40%,transparent);
+    background-image:conic-gradient(color-mix(in srgb,var(--ink) 30%,transparent) 25%,transparent 0 50%,color-mix(in srgb,var(--ink) 30%,transparent) 0 75%,transparent 0);
+    background-size:4px 4px;
+    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  }
+  dialog h2{font:600 22px/1.2 var(--ui);margin-bottom:10px}
+  dialog p{font-size:15px;margin-bottom:14px}
+  dialog small{display:block;color:var(--mute);font-size:13px;margin-top:6px}
+  dialog ul{list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:10px}
+  dialog li{font-size:15px;padding-left:12px;border-left:2px solid var(--ink)}
+  dialog li b{font-weight:600;display:block}
+  .row{display:flex;gap:12px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+  .row button,.pick{font:500 15px var(--ui);padding:9px 18px;border-radius:12px;display:inline-block}
+  .glass.pick:focus-visible{outline-offset:3px}
+  input[type=file]{display:none}
+
+  /* ===== modos de entrada ===== */
+  .voice{display:none;flex-direction:column;align-items:center;gap:14px}
+  body[data-mode="voice"] .voice,body[data-mode="conversation"] .voice{display:flex}
+  body[data-mode="voice"] #msg,body[data-mode="conversation"] #msg{display:none}
+  body[data-mode="voice"] .field::after,body[data-mode="conversation"] .field::after{display:none}
+  .transcript{
+    font:400 clamp(24px,5.5vw,32px)/1.3 var(--write);text-align:center;width:100%;
+    min-height:2.6em;display:grid;place-items:center;
+  }
+  .transcript.empty{color:var(--mute);font-size:clamp(18px,4.2vw,24px)}
+  .mic{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;padding:0}
+  .mic svg{width:40%;height:40%;fill:currentColor;grid-area:1/1;pointer-events:none}
+  .ic-wave{display:none}
+  body[data-mode="conversation"] .ic-wave{display:block}
+  body[data-mode="conversation"] .ic-mic{display:none}
+  .mic.live{background:var(--glass-dark);color:var(--paper)}
+  .mic.live::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid var(--ink);animation:listen 1.2s steps(2,end) infinite;pointer-events:none}
+  @keyframes listen{0%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.07)}}
+  .hint{font-size:13px;color:var(--mute);font-weight:500;min-height:1.4em;text-align:center}
+  .links{display:flex;gap:18px;min-height:2em}
+  .link{border:0;background:none;color:var(--ink);font:500 14px var(--ui);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;cursor:pointer;padding:6px}
+  .link[hidden]{display:none}
+  .link:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .ideas button.numbered{display:flex;align-items:center;gap:12px}
+  .ideas button.numbered:hover .num,.ideas button.numbered:focus-visible .num{border-color:var(--paper)}
+  .num{display:inline-grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid currentColor;font-weight:600;font-size:14px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .field.flash,html.flash{animation:eflash .42s steps(1,end) 1}
+  @keyframes eflash{0%{filter:invert(1)}35%{filter:none}60%{filter:invert(1)}100%{filter:none}}
+
+  /* ===== burbuja de plástico ===== */
+  .glass.pop{animation:bubble .5s cubic-bezier(.2,.8,.3,1)}
+  @keyframes bubble{
+    0%{transform:scale(1)}
+    16%{transform:scale(.84)}
+    34%{transform:scale(1.14)}
+    58%{transform:scale(.95)}
+    100%{transform:scale(1)}
+  }
+  /* reventada: sin brillo, con hoyuelo hacia dentro */
+  .glass.popped,.glass.popped:hover,.glass.popped:focus-visible{
+    background:var(--pop-bg);
+    color:var(--ink);
+    box-shadow:var(--pop-shadow);
+  }
+  .glass.popped svg{transform:scale(.9)}
+  .burst{position:absolute;inset:0;border-radius:inherit;pointer-events:none}
+  .burst::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid var(--ink);
+    animation:ring .5s ease-out both;
+  }
+  @keyframes ring{from{transform:scale(.9);opacity:.85}to{transform:scale(1.5);opacity:0}}
+  .burst i{
+    position:absolute;left:50%;top:50%;width:7px;height:7px;border-radius:50% 40% 60% 45%;
+    background:rgba(255,255,255,.8);border:1px solid var(--ink);
+    animation:shard .55s cubic-bezier(.1,.7,.3,1) both;
+  }
+  @keyframes shard{
+    from{transform:translate(-50%,-50%) rotate(var(--a)) translateX(0) scale(1);opacity:1}
+    to{transform:translate(-50%,-50%) rotate(var(--a)) translateX(var(--d)) scale(.3);opacity:0}
+  }
+
+  @media (prefers-reduced-motion:reduce){.send button.flash,.glass.pop,.field.flash,html.flash,.mic.live::after{animation:none}.glass:active{transform:none}}
+</style>
+</head>
+<body data-mode="write">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0h-2a5 5 0 0 1-10 0Z"/><rect x="11" y="18" width="2" height="3"/><rect x="8" y="20.5" width="8" height="1.8" rx=".9"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><rect x="2.5" y="9" width="2.2" height="6" rx="1.1"/><rect x="6.8" y="5" width="2.2" height="14" rx="1.1"/><rect x="10.9" y="2" width="2.2" height="20" rx="1.1"/><rect x="15" y="6" width="2.2" height="12" rx="1.1"/><rect x="19.3" y="9" width="2.2" height="6" rx="1.1"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+  <symbol id="i-teams" viewBox="0 0 24 24"><circle cx="17.2" cy="6.6" r="2.4"/><path d="M14.4 10.4h5.7a1.9 1.9 0 0 1 1.9 1.9v3.5a3.4 3.4 0 0 1-3.4 3.4h-.1a4.1 4.1 0 0 1-4.1-4.1Z"/><path fill-rule="evenodd" d="M3.8 5.8h7.4A1.8 1.8 0 0 1 13 7.6v8.8a1.8 1.8 0 0 1-1.8 1.8H3.8A1.8 1.8 0 0 1 2 16.4V7.6a1.8 1.8 0 0 1 1.8-1.8ZM4.6 8.6v1.4h2.4v5.2h1.4V10h2.4V8.6Z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></symbol>
+</svg>
+
+<p id="modeLive" class="sr" aria-live="polite"></p>
+<header><a class="logo" href="https://bonafont.dev" aria-label="Bonafont">BONAFONT</a></header>
+
+<main>
+  <div class="field">
+    <div id="landmark" class="landmark" role="img" hidden></div>
+    <textarea id="msg" rows="2" data-i18n-ph="placeholder" data-i18n-aria="msgLabel"></textarea>
+    <div class="voice" id="voiceView">
+      <p class="transcript empty" id="transcript" aria-live="polite"></p>
+      <button class="mic" id="micBtn" type="button">
+        <svg class="ic-mic" aria-hidden="true"><use href="#i-mic"/></svg>
+        <svg class="ic-wave" aria-hidden="true"><use href="#i-wave"/></svg>
+      </button>
+      <p class="hint" id="voiceStatus"></p>
+      <div class="links"><button class="link" id="toWrite" type="button" hidden></button><button class="link" id="clearBtn" type="button" hidden></button></div>
+    </div>
+  </div>
+
+  <div class="send" id="send">
+    <button data-p="whatsapp" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></button>
+    <button data-p="teams" aria-label="Microsoft Teams"><svg aria-hidden="true"><use href="#i-teams"/></svg></button>
+    <button data-p="x" aria-label="X"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+
+  <section class="ideas" id="ideas" aria-live="polite"></section>
+</main>
+
+<footer>
+  <span id="ctx"></span>
+  <button id="calBtn"></button>
+</footer>
+
+<!-- permisos -->
+<dialog id="permDlg">
+  <h2 data-i18n="permTitle"></h2>
+  <p data-i18n="permIntro"></p>
+  <ul id="permList"></ul>
+  <small data-i18n="permNote"></small>
+  <small id="permWarn" hidden></small>
+  <div class="row">
+    <button id="permSkip" type="button" data-i18n="permSkip"></button>
+    <button id="permAllow" type="button" autofocus data-i18n="permAllow"></button>
+  </div>
+</dialog>
+
+<!-- calendario -->
+<dialog id="calDlg">
+  <h2 data-i18n="calTitle"></h2>
+  <p data-i18n="calText"></p>
+  <label class="pick" tabindex="0" id="pickLbl"><span data-i18n="calPick"></span>
+    <input type="file" id="ics" accept=".ics,text/calendar">
+  </label>
+  <small id="calMsg"></small>
+  <div class="row">
+    <button id="calClear" type="button" data-i18n="calRemove"></button>
+    <button id="calClose" type="button" data-i18n="calClose"></button>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+
+  /* ================= IDIOMA ================= */
+  const I18N = {
+    es:{
+      placeholder:'¿Qué se cuece hoy?', modeWrite:'Escribir', clear:'Borrar', micTalk:'Toca para dictar', micStop:'Toca para parar', tapConv:'Toca para hablar conmigo', listening:'Te escucho…', speaking:'Hablando…', noSpeech:'Tu navegador no permite voz. Usa el modo escrito.', ideasConv:'Di el número de la opción',
+      modeNames:{write:'Modo escrito',voice:'Modo voz',conversation:'Modo conversación'},
+      conv:{intro:o=>`Te propongo ${o.length} mensajes. ${o.map((t,i)=>`Opción ${i+1}: ${t}.`).join(' ')} Di un número o dicta tu mensaje.`, confirm:(m,p)=>`Tu mensaje: ${m}. ¿Lo envío por ${p}? Di sí, no, o el nombre de otra plataforma.`, noHear:'No te he oído.', again:'No te he entendido. Di sí, no o una plataforma.'}, msgLabel:'Mensaje', ideas:'Ideas para ahora', best:'Lo más adecuado para este mensaje',
+      calConnect:'Conectar calendario', calendar:'Calendario', calTitle:'Tu calendario',
+      calText:'Importa un archivo .ics exportado desde Google Calendar, Outlook o Calendario de Apple. Se lee en este dispositivo y no se envía a ningún servidor.',
+      calPick:'Elegir archivo .ics', calRemove:'Quitar', calClose:'Cerrar',
+      calLoaded:n=>`${n} eventos cargados.`, calLoadedNote:n=>`${n} eventos cargados. Los eventos recurrentes aún no se expanden.`,
+      calEmpty:'No se han encontrado eventos con hora en este archivo.', calCleared:'Calendario quitado.',
+      slots:{dawn:'madrugada',morning:'mañana',afternoon:'tarde',night:'noche'},
+      ev0:'sin eventos hoy', ev1:'1 evento hoy', evN:n=>`${n} eventos hoy`,
+      s:{vehicle:'en vehículo',headphones:'auriculares',moving:'en movimiento',still:'parado',noisy:'ruidoso',quiet:'silencioso',bright:'luminoso',dark:'oscuro'},
+      permTitle:'Una web que se adapta a ti',
+      permIntro:'Esto es una experiencia web hiperreactiva: cambia sus mensajes según el entorno en el que estás. Para lograrlo necesita activar estos permisos:',
+      permItems:[['Cámara','Mide la luz para elegir modo claro u oscuro y el tono. No se guarda ninguna imagen.'],['Micrófono','Mide el ruido para ajustar el tono. No se graba audio.'],['Sensores','Detectan si estás parado o en movimiento.'],['Ubicación','Sitúa dónde estás, a qué velocidad te mueves y qué tiempo hace.']],
+      permNote:'La cámara, el micrófono y los sensores se procesan solo en tu dispositivo. Para consultar el tiempo se envía tu ubicación aproximada (redondeada a ~1 km) a Open-Meteo. Si usas el dictado o la conversación, el audio lo procesa el servicio de voz de tu navegador.',
+      permAllow:'Activar', permSkip:'Ahora no', permInsecure:'Estos permisos solo funcionan en una conexión segura (https).',
+      tones:{calm:'tono calmado',lively:'tono enérgico'},
+      tone:{
+        calm:{
+          current:(t,e)=>`Estoy en «${t}» hasta las ${e}… luego te escribo, con calma.`,
+          next:(t,s)=>`Tengo «${t}» a las ${s}… ¿hablamos antes, sin prisa?`,
+          soon:t=>`Ahora voy a «${t}»… luego te llamo, tranqui.`,
+          done:'Ya he terminado por hoy… ¿charlamos un rato, sin prisa?',
+          moving:'Voy de camino, despacito… te escribo al llegar.',
+          dawn:['Sigo despierto… mañana te cuento, sin prisa.'],
+          morning:['Buenos días… arrancando poco a poco. ¿Y tú?','Mañana tranquila por aquí… hablamos luego, ¿vale?'],
+          afternoon:['Tarde de sofá… ¿un cafecito, sin prisa?','Te escribo luego con calma, ¿vale?'],
+          night:['Buenas noches… ya me estoy apagando. Mañana hablamos.','Noche tranquila… ¿qué tal por ahí?']
+        },
+        lively:{
+          current:(t,e)=>`¡Estoy en «${t}» hasta las ${e}! ¡Te escribo en cuanto salga!`,
+          next:(t,s)=>`¡Tengo «${t}» a las ${s}! ¿Hablamos antes o qué?`,
+          soon:t=>`¡Voy volando a «${t}»! ¡Te llamo luego!`,
+          done:'¡Ya he terminado por hoy! ¿Hablamos o qué?',
+          moving:'¡Voy de camino! ¡Te cuento todo al llegar!',
+          noisy:'¡Esto está a tope de ruido! ¡Mejor te escribo que te llamo!',
+          dawn:['¡Sigo despierto y con ganas! ¡Mañana te lo cuento todo!'],
+          morning:['¡Buenos días! ¡Qué ganas de empezar el día! ¿Y tú?','¡Mañana a tope por aquí! ¡Hablamos luego!'],
+          afternoon:['¡Qué tarde más buena! ¿Nos tomamos un café ya?','¡Te escribo en un rato y lo cerramos!'],
+          night:['¡Buenas noches! ¡Qué día! ¡Mañana lo hablamos!','¡Noche de risas! ¿Qué se cuece por ahí?']
+        }
+      },
+      sug:{
+        current:(t,e)=>`Estoy en «${t}» hasta las ${e}. Te escribo al salir.`,
+        next:(t,s)=>`Tengo «${t}» a las ${s}. ¿Hablamos antes?`,
+        soon:t=>`Voy justo a «${t}», te llamo luego.`,
+        done:'Ya he terminado por hoy. ¿Te va bien que hablemos?',
+        moving:'Voy de camino. Te escribo al llegar.',
+        noisy:'Hay mucho ruido por aquí. Mejor te escribo que te llamo.',
+        dawn:['Sigo despierto. Mañana te cuento con calma.'],
+        morning:['Buenos días. ¿Cómo empieza tu día?','Hoy tengo la mañana ocupada, hablamos después.'],
+        afternoon:['¿Tomamos un café esta tarde?','Te escribo a última hora para cerrarlo.'],
+        night:['Buenas noches. Mañana lo hablamos.','Hoy ha sido largo. ¿Qué tal por ahí?']
+      }
+    },
+    ca:{
+      placeholder:'Què es cuina avui?', modeWrite:'Escriure', clear:'Esborrar', micTalk:'Toca per dictar', micStop:'Toca per parar', tapConv:'Toca per parlar amb mi', listening:'T’escolto…', speaking:'Parlant…', noSpeech:'El teu navegador no admet veu. Fes servir el mode escrit.', ideasConv:'Digues el número de l’opció',
+      modeNames:{write:'Mode escrit',voice:'Mode veu',conversation:'Mode conversa'},
+      conv:{intro:o=>`Et proposo ${o.length} missatges. ${o.map((t,i)=>`Opció ${i+1}: ${t}.`).join(' ')} Digues un número o dicta el teu missatge.`, confirm:(m,p)=>`El teu missatge: ${m}. Te l’envio per ${p}? Digues sí, no, o el nom d’una altra plataforma.`, noHear:'No t’he sentit.', again:'No t’he entès. Digues sí, no o una plataforma.'}, msgLabel:'Missatge', ideas:'Idees per ara', best:'El més adequat per a aquest missatge',
+      calConnect:'Connectar calendari', calendar:'Calendari', calTitle:'El teu calendari',
+      calText:'Importa un fitxer .ics exportat des de Google Calendar, Outlook o Calendari d’Apple. Es llegeix en aquest dispositiu i no s’envia a cap servidor.',
+      calPick:'Triar fitxer .ics', calRemove:'Treure', calClose:'Tancar',
+      calLoaded:n=>`${n} esdeveniments carregats.`, calLoadedNote:n=>`${n} esdeveniments carregats. Els esdeveniments recurrents encara no s’expandeixen.`,
+      calEmpty:'No s’han trobat esdeveniments amb hora en aquest fitxer.', calCleared:'Calendari tret.',
+      slots:{dawn:'matinada',morning:'matí',afternoon:'tarda',night:'nit'},
+      ev0:'sense esdeveniments avui', ev1:'1 esdeveniment avui', evN:n=>`${n} esdeveniments avui`,
+      s:{vehicle:'en vehicle',headphones:'auriculars',moving:'en moviment',still:'aturat',noisy:'sorollós',quiet:'silenciós',bright:'lluminós',dark:'fosc'},
+      permTitle:'Una web que s’adapta a tu',
+      permIntro:'Aquesta és una experiència web hiperreactiva: canvia els seus missatges segons l’entorn on ets. Per aconseguir-ho necessita activar aquests permisos:',
+      permItems:[['Càmera','Mesura la llum per triar mode clar o fosc i el to. No es desa cap imatge.'],['Micròfon','Mesura el soroll per ajustar el to. No s’enregistra àudio.'],['Sensors','Detecten si estàs aturat o en moviment.'],['Ubicació','Situa on ets, a quina velocitat et mous i quin temps fa.']],
+      permNote:'La càmera, el micròfon i els sensors es processen només al teu dispositiu. Per consultar el temps s’envia la teva ubicació aproximada (arrodonida a ~1 km) a Open-Meteo. Si fas servir el dictat o la conversa, l’àudio el processa el servei de veu del teu navegador.',
+      permAllow:'Activar', permSkip:'Ara no', permInsecure:'Aquests permisos només funcionen amb una connexió segura (https).',
+      tones:{calm:'to calmat',lively:'to enèrgic'},
+      tone:{
+        calm:{
+          current:(t,e)=>`Sóc a «${t}» fins a les ${e}… després t’escric, amb calma.`,
+          next:(t,s)=>`Tinc «${t}» a les ${s}… parlem abans, sense pressa?`,
+          soon:t=>`Ara vaig a «${t}»… després et truco, tranqui.`,
+          done:'Ja he acabat per avui… xerrem una estona, sense pressa?',
+          moving:'Vaig de camí, a poc a poc… t’escric en arribar.',
+          dawn:['Encara sóc despert… demà t’ho explico, sense pressa.'],
+          morning:['Bon dia… arrencant a poc a poc. I tu?','Matí tranquil per aquí… parlem després, d’acord?'],
+          afternoon:['Tarda de sofà… un cafetó, sense pressa?','T’escric després amb calma, d’acord?'],
+          night:['Bona nit… ja m’estic apagant. Demà parlem.','Nit tranquil·la… com va per allà?']
+        },
+        lively:{
+          current:(t,e)=>`Sóc a «${t}» fins a les ${e}! T’escric tan bon punt surti!`,
+          next:(t,s)=>`Tinc «${t}» a les ${s}! Parlem abans o què?`,
+          soon:t=>`Vaig volant a «${t}»! Et truco després!`,
+          done:'Ja he acabat per avui! Parlem o què?',
+          moving:'Vaig de camí! T’ho explico tot en arribar!',
+          noisy:'Això està a tope de soroll! Millor t’escric que no pas et truco!',
+          dawn:['Encara sóc despert i amb ganes! Demà t’ho explico tot!'],
+          morning:['Bon dia! Quines ganes de començar el dia! I tu?','Matí a tope per aquí! Parlem després!'],
+          afternoon:['Quina tarda més bona! Prenem un cafè ja?','T’escric d’aquí una estona i ho tanquem!'],
+          night:['Bona nit! Quin dia! Demà ho parlem!','Nit de rialles! Què es cuina per allà?']
+        }
+      },
+      sug:{
+        current:(t,e)=>`Sóc a «${t}» fins a les ${e}. T’escric en sortir.`,
+        next:(t,s)=>`Tinc «${t}» a les ${s}. Parlem abans?`,
+        soon:t=>`Vaig just a «${t}», et truco després.`,
+        done:'Ja he acabat per avui. Et va bé que parlem?',
+        moving:'Vaig de camí. T’escric en arribar.',
+        noisy:'Hi ha molt soroll per aquí. Millor t’escric que no pas et truco.',
+        dawn:['Encara sóc despert. Demà t’ho explico amb calma.'],
+        morning:['Bon dia. Com comença el teu dia?','Avui tinc el matí ocupat, parlem després.'],
+        afternoon:['Prenem un cafè aquesta tarda?','T’escric a última hora per tancar-ho.'],
+        night:['Bona nit. Demà ho parlem.','Avui ha estat llarg. Com va per allà?']
+      }
+    },
+    en:{
+      placeholder:'What’s cooking today?', modeWrite:'Type instead', clear:'Clear', micTalk:'Tap to dictate', micStop:'Tap to stop', tapConv:'Tap to talk with me', listening:'Listening…', speaking:'Speaking…', noSpeech:'Your browser doesn’t support speech. Use typing mode.', ideasConv:'Say the option number',
+      modeNames:{write:'Typing mode',voice:'Voice mode',conversation:'Conversation mode'},
+      conv:{intro:o=>`I suggest ${o.length} messages. ${o.map((t,i)=>`Option ${i+1}: ${t}.`).join(' ')} Say a number, or dictate your message.`, confirm:(m,p)=>`Your message: ${m}. Send it on ${p}? Say yes, no, or the name of another platform.`, noHear:'I didn’t hear you.', again:'I didn’t get that. Say yes, no, or a platform.'}, msgLabel:'Message', ideas:'Ideas for right now', best:'Best fit for this message',
+      calConnect:'Connect calendar', calendar:'Calendar', calTitle:'Your calendar',
+      calText:'Import an .ics file exported from Google Calendar, Outlook or Apple Calendar. It is read on this device and never sent to a server.',
+      calPick:'Choose .ics file', calRemove:'Remove', calClose:'Close',
+      calLoaded:n=>`${n} events loaded.`, calLoadedNote:n=>`${n} events loaded. Recurring events are not expanded yet.`,
+      calEmpty:'No timed events were found in this file.', calCleared:'Calendar removed.',
+      slots:{dawn:'early hours',morning:'morning',afternoon:'afternoon',night:'night'},
+      ev0:'no events today', ev1:'1 event today', evN:n=>`${n} events today`,
+      s:{vehicle:'in a vehicle',headphones:'headphones',moving:'moving',still:'still',noisy:'noisy',quiet:'quiet',bright:'bright',dark:'dark'},
+      permTitle:'A web that adapts to you',
+      permIntro:'This is a hyper-reactive web experience: it changes its messages based on the environment you are in. To do that, it needs these permissions:',
+      permItems:[['Camera','Measures the light to pick light or dark mode and the tone. No image is saved.'],['Microphone','Measures the noise to adjust the tone. No audio is recorded.'],['Sensors','Detect whether you are still or moving.'],['Location','Places where you are, how fast you are moving and what the weather is like.']],
+      permNote:'Camera, microphone and sensors are processed only on your device. To check the weather, your approximate location (rounded to ~1 km) is sent to Open-Meteo. If you use dictation or conversation, the audio is processed by your browser’s speech service.',
+      permAllow:'Allow', permSkip:'Not now', permInsecure:'These permissions only work over a secure connection (https).',
+      tones:{calm:'calm tone',lively:'lively tone'},
+      tone:{
+        calm:{
+          current:(t,e)=>`I’m in “${t}” until ${e}… I’ll text you after, no rush.`,
+          next:(t,s)=>`I have “${t}” at ${s}… talk before, no rush?`,
+          soon:t=>`Heading into “${t}” now… I’ll call you later, easy.`,
+          done:'I’m done for today… want to chat for a bit, no rush?',
+          moving:'On my way, nice and slow… I’ll text you when I get there.',
+          dawn:['Still awake… I’ll tell you tomorrow, no rush.'],
+          morning:['Good morning… easing into it. And you?','Quiet morning here… let’s talk later, okay?'],
+          afternoon:['Lazy afternoon… a coffee, no rush?','I’ll write to you later, nice and easy.'],
+          night:['Good night… winding down. Let’s talk tomorrow.','Quiet night… how are things there?']
+        },
+        lively:{
+          current:(t,e)=>`I’m in “${t}” until ${e}! I’ll text you the second I’m out!`,
+          next:(t,s)=>`I’ve got “${t}” at ${s}! Talk before, or what?`,
+          soon:t=>`Racing into “${t}”! I’ll call you after!`,
+          done:'I’m done for today! Shall we talk or what?',
+          moving:'On my way! I’ll tell you everything when I get there!',
+          noisy:'It’s SO loud here! I’ll text instead of calling!',
+          dawn:['Still up and buzzing! I’ll tell you everything tomorrow!'],
+          morning:['Good morning! So ready for today! And you?','Packed morning here! Let’s talk later!'],
+          afternoon:['What a great afternoon! Coffee right now?','I’ll write in a bit and we’ll wrap it up!'],
+          night:['Good night! What a day! Let’s talk tomorrow!','Night full of laughs! What’s cooking over there?']
+        }
+      },
+      sug:{
+        current:(t,e)=>`I’m in “${t}” until ${e}. I’ll text you when I’m out.`,
+        next:(t,s)=>`I have “${t}” at ${s}. Can we talk before?`,
+        soon:t=>`Heading into “${t}” now, I’ll call you later.`,
+        done:'I’m done for today. Is it a good time to talk?',
+        moving:'I’m on my way. I’ll text you when I arrive.',
+        noisy:'It’s really loud here. I’ll text instead of calling.',
+        dawn:['Still awake. I’ll tell you everything tomorrow.'],
+        morning:['Good morning. How is your day starting?','My morning is packed today, let’s talk later.'],
+        afternoon:['Coffee this afternoon?','I’ll write to you later to wrap this up.'],
+        night:['Good night. Let’s talk tomorrow.','Long day. How are things on your side?']
+      }
+    }
+  };
+  const supported = Object.keys(I18N);
+  const lang = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'])
+    .map(l => String(l).toLowerCase().slice(0,2)).find(l => supported.includes(l)) || 'en';
+  const T = I18N[lang];
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = T[el.dataset.i18n]);
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => el.placeholder = T[el.dataset.i18nPh]);
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', T[el.dataset.i18nAria]));
+  $('#permList').innerHTML = T.permItems.map(([n,d]) => `<li><b>${n}</b>${d}</li>`).join('');
+
+  /* ================= ESTADO ================= */
+  const msg = $('#msg'), ideasEl = $('#ideas'), ctxEl = $('#ctx');
+  const calDlg = $('#calDlg'), calMsg = $('#calMsg'), permDlg = $('#permDlg');
+
+  const store = {
+    get(){ try{ return JSON.parse(localStorage.getItem('bonafont.events')||'[]'); }catch{ return []; } },
+    set(v){ try{ localStorage.setItem('bonafont.events', JSON.stringify(v)); }catch{} }
+  };
+  let events = store.get().map(e => ({...e, start:new Date(e.start), end:new Date(e.end)}));
+
+  const sens = {moving:null, noisy:null, bright:null, vehicle:null, headphones:null, light:null, noise:null};
+  function setSens(k, v){ if (sens[k] !== v){ sens[k] = v; render(); evaluateMode(); } }
+
+  /* ================= CONTEXTO ================= */
+  const slotOf = d => { const h = d.getHours(); return h < 6 ? 'dawn' : h < 12 ? 'morning' : h < 20 ? 'afternoon' : 'night'; };
+  const hm = d => d.toLocaleTimeString(lang, {hour:'2-digit', minute:'2-digit'});
+  const sameDay = (a,b) => a.toDateString() === b.toDateString();
+
+  function context(now = new Date()){
+    const today = events.filter(e => sameDay(e.start, now)).sort((a,b) => a.start - b.start);
+    const current = today.find(e => e.start <= now && e.end > now) || null;
+    const next = today.find(e => e.start > now) || null;
+    return {now, slot:slotOf(now), today, current, next, minsToNext: next ? Math.round((next.start-now)/60000) : null};
+  }
+
+  function suggest(c){
+    const S = {...T.sug, ...(T.tone[toneNow()] || {})}, out = [];
+    if (c.current) out.push(S.current(c.current.title, hm(c.current.end)));
+    else if (c.next && c.minsToNext <= 90){
+      out.push(S.next(c.next.title, hm(c.next.start)));
+      if (c.minsToNext <= 20) out.push(S.soon(c.next.title));
+    } else if (events.length && !c.next && c.today.length) out.push(S.done);
+    if (sens.moving) out.push(S.moving);
+    if (sens.noisy) out.push(S.noisy);
+    return [...out, ...S[c.slot]].slice(0,3);
+  }
+
+  function render(){
+    const c = context();
+    ideasEl.innerHTML = '';
+    const h = document.createElement('p'); h.textContent = mode === 'conversation' ? T.ideasConv : T.ideas; ideasEl.appendChild(h);
+    ideasList = suggest(c);
+    ideasList.forEach((t, i) => {
+      const b = document.createElement('button');
+      b.className = 'glass';
+      if (mode === 'conversation'){
+        b.classList.add('numbered');
+        const n = document.createElement('span'); n.className = 'num'; n.textContent = i + 1;
+        const tx = document.createElement('span'); tx.textContent = t;
+        b.append(n, tx);
+      } else b.textContent = t;
+      b.onclick = () => {
+        msg.value = t; autosize(); sync();
+        if (mode === 'write') msg.focus();
+        if (convActive){ convPick = t; try{ rec && rec.abort(); }catch{} if ('speechSynthesis' in window) speechSynthesis.cancel(); }
+      };
+      ideasEl.appendChild(b);
+    });
+    const n = c.today.length;
+    const parts = [T.slots[c.slot]];
+    if (events.length) parts.push(n === 0 ? T.ev0 : n === 1 ? T.ev1 : T.evN(n));
+    if (sens.vehicle) parts.push(T.s.vehicle); else if (sens.moving !== null) parts.push(sens.moving ? T.s.moving : T.s.still);
+    if (sens.headphones) parts.push(T.s.headphones);
+    if (sens.noise === 'loud') parts.push(T.s.noisy); else if (sens.noise === 'quiet') parts.push(T.s.quiet);
+    if (sens.light === 'bright') parts.push(T.s.bright); else if (sens.light === 'dark') parts.push(T.s.dark);
+    if (toneNow() !== 'neutral') parts.push(T.tones[toneNow()]);
+    ctxEl.textContent = parts.join(', ');
+    $('#calBtn').textContent = events.length ? T.calendar : T.calConnect;
+    sync();
+    updatePlaceholder();
+    applyTheme();
+  }
+
+  /* ================= PLATAFORMA MÁS ADECUADA ================= */
+  const kw = (words, extra='') => new RegExp((extra ? extra + '|' : '') + '(?<![\\p{L}\\d])(?:' + words + ')(?![\\p{L}\\d])', 'giu');
+  const RX = {
+    work: kw('reuni[oó]n?s?|meeting|informe|report|equipo|equip|team|proyecto|projecte|project|deadline|plazo|termini|client[ea]?s?|factura|invoice|presentaci[oó]n?|presentation|oficina|office|propuesta|proposal|oferta|sprint|standup|entrega|delivery|jefe|boss|manager|llamada|trucada|call|agenda|contrato|contracte|contract|presupuesto|pressupost|budget|email|correo|ticket|bug|deploy|colega|colleague'),
+    pub:  kw('anuncio|anunci|announce|announcing|hilo|fil|thread|opini[oó]n?|opinion|novedad|novetat|launch|lanzamos|llancem|lanzamiento|llançament|acabamos de|acabem de|we just|breaking|última hora|ultima hora|pienso que|crec que|i think|hot take|pol[ií]tica|govern|gobierno|government|elecciones|eleccions|election', '[#@]\\p{L}'),
+    personal: kw('caf[eé]|coffee|cena|sopar|dinner|comer|dinar|lunch|te quiero|t’estimo|t\'estimo|love you|jaja+|haha+|jeje+|😂|❤️?|😘|🥰|abuela|iaia|mamá|mama|papá|hermano|germà|brother|fiesta|festa|party|cumple|aniversari|birthday|besos|petons|kisses|hola|hello|hey|buenos días|bon dia|good morning|buenas noches|bona nit|good night|cine|peli|film|movie|quedamos|quedem|vacaciones|vacances|holiday|viaje|viatge|trip|cariño|amor|cervesa|cerveza|beer|plan')
+  };
+  const platforms = ['whatsapp','teams','x'];
+
+  function pickPlatform(text){
+    text = text.trim();
+    if (!text) return null;
+    const c = context(), count = rx => (text.match(rx) || []).length;
+    const s = {whatsapp:count(RX.personal), teams:count(RX.work), x:count(RX.pub)};
+    const wd = c.now.getDay(), h = c.now.getHours();
+    if (wd > 0 && wd < 6 && h >= 9 && h < 18) s.teams += .5; else s.whatsapp += .5;
+    if (c.current) s.teams += .5;
+    if (text.length > 280) s.x -= 3;
+    return platforms.reduce((b,p) => s[p] > s[b] ? p : b, 'whatsapp');
+  }
+
+  let lastBest = null;
+  function sync(){
+    const empty = !msg.value.trim();
+    const best = pickPlatform(msg.value);
+    document.querySelectorAll('#send button').forEach(b => {
+      b.setAttribute('aria-disabled', empty);
+      const isBest = b.dataset.p === best;
+      b.classList.toggle('is-best', isBest);
+      if (isBest){
+        b.title = T.best;
+        if (best !== lastBest){
+          b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash');
+          b.addEventListener('animationend', () => b.classList.remove('flash'), {once:true});
+        }
+      } else b.removeAttribute('title');
+    });
+    lastBest = best;
+    showTranscript();
+  }
+  function autosize(){ msg.style.minHeight = msg.value ? '' : '3.9em'; msg.style.height = 'auto'; msg.style.height = msg.scrollHeight + 'px'; }
+  msg.addEventListener('input', () => { lastTyped = Date.now(); autosize(); sync(); });
+
+  /* ================= ENVÍO ================= */
+  const enc = encodeURIComponent;
+  const links = {
+    whatsapp: t => `https://wa.me/?text=${enc(t)}`,
+    teams:    t => `https://teams.microsoft.com/share?href=${enc(location.protocol.startsWith('http') ? location.href : 'https://bonafont.dev')}&msgText=${enc(t)}`,
+    x:        t => `https://x.com/intent/post?text=${enc(t)}`
+  };
+  $('#send').addEventListener('click', e => {
+    const btn = e.target.closest('button'); if (!btn) return;
+    const text = msg.value.trim();
+    if (!text){ msg.focus(); return; }
+    window.open(links[btn.dataset.p](text), '_blank', 'noopener');
+  });
+
+  /* ================= CALENDARIO (.ics) ================= */
+  function parseDate(v){
+    const m = v.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})?(Z)?)?$/);
+    if (!m) return null;
+    const [, y, mo, d, h, mi, s, z] = m;
+    if (h === undefined) return null;
+    return z ? new Date(Date.UTC(+y, mo-1, +d, +h, +mi, +(s||0))) : new Date(+y, mo-1, +d, +h, +mi, +(s||0));
+  }
+  function parseICS(txt){
+    const unfolded = txt.replace(/\r?\n[ \t]/g, ''), out = [];
+    unfolded.split('BEGIN:VEVENT').slice(1).forEach(block => {
+      const body = block.split('END:VEVENT')[0];
+      const get = k => { const r = body.match(new RegExp('^' + k + '(?:;[^:\\n]*)?:(.*)$', 'm')); return r ? r[1].trim() : null; };
+      const start = parseDate(get('DTSTART') || '');
+      const end = parseDate(get('DTEND') || '') || (start && new Date(start.getTime() + 3600000));
+      const title = (get('SUMMARY') || '—').replace(/\\([,;])/g,'$1').replace(/\\n/g,' ');
+      if (start) out.push({title, start, end});
+    });
+    return out;
+  }
+  $('#calBtn').onclick = () => { calMsg.textContent = events.length ? T.calLoaded(events.length) : ''; calDlg.showModal(); };
+  $('#calClose').onclick = () => calDlg.close();
+  $('#calClear').onclick = () => { events = []; store.set([]); calMsg.textContent = T.calCleared; render(); };
+  $('#pickLbl').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); $('#ics').click(); } });
+  $('#ics').addEventListener('change', async e => {
+    const f = e.target.files[0]; if (!f) return;
+    const parsed = parseICS(await f.text());
+    if (!parsed.length){ calMsg.textContent = T.calEmpty; return; }
+    events = parsed; store.set(parsed);
+    calMsg.textContent = T.calLoadedNote(parsed.length);
+    render();
+  });
+
+  /* ================= SENSORES ================= */
+  const haversine = (a, b) => {
+    const R = 6371000, r = x => x * Math.PI / 180;
+    const dLat = r(b.latitude - a.latitude), dLon = r(b.longitude - a.longitude);
+    const h = Math.sin(dLat/2)**2 + Math.cos(r(a.latitude)) * Math.cos(r(b.latitude)) * Math.sin(dLon/2)**2;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  };
+
+  let geoSpeed = null, motionSd = null, movingTimer = null;
+  function applyVehicle(){
+    const sticky = lastVehicleAt > 0 && Date.now() - lastVehicleAt < 90000;   // semáforos y atascos
+    setSens('vehicle', speedVehicle || carConn || sticky);
+  }
+  function updateMoving(){
+    if (geoSpeed === null && motionSd === null) return;
+    if (geoSpeed !== null && geoSpeed >= 7){ speedVehicle = true; lastVehicleAt = Date.now(); } else speedVehicle = false;
+    applyVehicle();
+    setSens('moving', sens.vehicle || (geoSpeed !== null && geoSpeed > 1) || (motionSd !== null && motionSd > .8));
+  }
+  function ensureMovingTimer(){ if (!movingTimer) movingTimer = setInterval(updateMoving, 2000); }
+
+  function startGeo(){
+    let last = null;
+    navigator.geolocation.watchPosition(p => {
+      locate(p.coords);
+      let s = p.coords.speed;
+      if ((s === null || s === undefined) && last){
+        const dt = (p.timestamp - last.t) / 1000;
+        if (dt > 0) s = haversine(last.c, p.coords) / dt;
+      }
+      last = {t:p.timestamp, c:{latitude:p.coords.latitude, longitude:p.coords.longitude}};
+      geoSpeed = (s === null || s === undefined || isNaN(s)) ? geoSpeed : s;
+      ensureMovingTimer();
+    }, () => {}, {enableHighAccuracy:true, maximumAge:5000});
+  }
+
+  function startMotion(){
+    const buf = [];
+    window.addEventListener('devicemotion', e => {
+      const a = e.accelerationIncludingGravity;
+      if (!a || a.x == null) return;
+      buf.push(Math.hypot(a.x, a.y, a.z));
+      if (buf.length > 60) buf.shift();
+      if (buf.length >= 20){
+        const mean = buf.reduce((s,v) => s+v, 0) / buf.length;
+        motionSd = Math.sqrt(buf.reduce((s,v) => s + (v-mean)**2, 0) / buf.length);
+        ensureMovingTimer();
+      }
+    });
+  }
+
+  function startAudio(stream){
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    const ac = new AC(); ac.resume && ac.resume();
+    const an = ac.createAnalyser(); an.fftSize = 1024;
+    ac.createMediaStreamSource(stream).connect(an);
+    const data = new Float32Array(an.fftSize); let level = null;
+    setInterval(() => {
+      an.getFloatTimeDomainData(data);
+      let s = 0; for (const v of data) s += v*v;
+      const rms = Math.sqrt(s / data.length);
+      level = level === null ? rms : level*.7 + rms*.3;
+      const nt = tierNoise(level); setSens('noise', nt); setSens('noisy', nt === 'loud');
+    }, 1000);
+  }
+
+  function startLight(stream){
+    const v = document.createElement('video');
+    v.muted = true; v.playsInline = true; v.srcObject = stream; v.play().catch(() => {});
+    const cv = document.createElement('canvas'); cv.width = cv.height = 16;
+    const cx = cv.getContext('2d', {willReadFrequently:true});
+    setInterval(() => {
+      if (v.readyState < 2) return;
+      cx.drawImage(v, 0, 0, 16, 16);
+      const px = cx.getImageData(0, 0, 16, 16).data; let sum = 0;
+      for (let i = 0; i < px.length; i += 4) sum += .2126*px[i] + .7152*px[i+1] + .0722*px[i+2];
+      const y = sum / (px.length/4);
+      lightEma = lightEma === null ? y : lightEma * .6 + y * .4;
+      setSens('light', tierLight(lightEma));
+    }, 3000);
+  }
+
+  async function getMedia(){
+    if (!navigator.mediaDevices) return;
+    const tryGet = c => navigator.mediaDevices.getUserMedia(c).catch(() => null);
+    let streams = [];
+    const both = await tryGet({audio:RAW_AUDIO, video:{width:64, height:64}});
+    if (both) streams = [both];
+    else streams = (await Promise.all([tryGet({audio:RAW_AUDIO}), tryGet({video:{width:64, height:64}})])).filter(Boolean);
+    streams.forEach(s => {
+      if (s.getAudioTracks().length) startAudio(s);
+      if (s.getVideoTracks().length) startLight(s);
+    });
+    checkRoute();
+  }
+
+  async function getMotion(){
+    try{
+      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function'){
+        if (await DeviceMotionEvent.requestPermission() !== 'granted') return;
+      }
+      if ('DeviceMotionEvent' in window) startMotion();
+    }catch{}
+  }
+
+  function getGeo(){
+    return new Promise(res => {
+      if (!('geolocation' in navigator)) return res();
+      navigator.geolocation.getCurrentPosition(p => { locate(p.coords); startGeo(); res(); }, () => res(), {timeout:15000});
+    });
+  }
+
+  async function enableContext(){
+    await getMotion();   // iOS exige hacerlo dentro del gesto del usuario
+    await getGeo();
+    await getMedia();
+  }
+
+  async function alreadyGranted(){
+    try{
+      const r = await Promise.all(['geolocation','camera','microphone'].map(name => navigator.permissions.query({name})));
+      return r.every(x => x.state === 'granted');
+    }catch{ return false; }
+  }
+
+  /* ================= CRISTAL + BURBUJA ================= */
+  document.querySelectorAll('.send button, footer button, .row button, .pick, .mic').forEach(el => el.classList.add('glass'));
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  function pop(el){
+    if (reduceMotion.matches) return;
+    el.classList.remove('pop','popped'); void el.offsetWidth; el.classList.add('pop','popped');
+    const wrap = document.createElement('span'); wrap.className = 'burst'; wrap.setAttribute('aria-hidden','true');
+    const n = el.matches('.send button') ? 10 : 6;
+    const reach = Math.min(el.offsetWidth, el.offsetHeight) * .5 + 16;
+    for (let i = 0; i < n; i++){
+      const f = document.createElement('i');
+      f.style.setProperty('--a', (360/n*i + Math.random()*24 - 12) + 'deg');
+      f.style.setProperty('--d', (reach + Math.random()*14) + 'px');
+      wrap.appendChild(f);
+    }
+    el.appendChild(wrap);
+    if (navigator.vibrate) navigator.vibrate(12);
+    setTimeout(() => wrap.remove(), 700);
+    setTimeout(() => el.classList.remove('pop','popped'), 1300);
+  }
+  document.addEventListener('click', e => {
+    if (e.target.matches('input')) return;
+    const el = e.target.closest('.glass');
+    if (!el || el.disabled || el.getAttribute('aria-disabled') === 'true') return;
+    pop(el);
+  });
+
+  /* ================= LOCALIZACIÓN CULTURAL ================= */
+  // Para añadir una ciudad: coordenadas, radio, medias mensuales (°C, aproximadas) e ilustración.
+  const LANDMARKS = {sagrada: `<svg viewBox="0 -6 140 158" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor"><rect x="10" y="104" width="120" height="44"/><rect x="65.0" y="40" width="10" height="108"/><path d="M65.0 40C65.0 23.5 68.8 14.5 70 10C71.2 14.5 75.0 23.5 75.0 40Z"/><circle cx="70" cy="7.4" r="2.3"/><rect x="14.0" y="84" width="12" height="64"/><path d="M14.0 84C14.0 67.5 18.8 58.5 20 54C21.2 58.5 26.0 67.5 26.0 84Z"/><circle cx="20" cy="51.4" r="2.3"/><rect x="33.5" y="70" width="13" height="78"/><path d="M33.5 70C33.5 50.2 38.8 39.4 40 34C41.2 39.4 46.5 50.2 46.5 70Z"/><circle cx="40" cy="31.4" r="2.3"/><rect x="51.5" y="62" width="13" height="86"/><path d="M51.5 62C51.5 41.1 56.8 29.7 58 24C59.2 29.7 64.5 41.1 64.5 62Z"/><circle cx="58" cy="21.4" r="2.3"/><rect x="75.5" y="62" width="13" height="86"/><path d="M75.5 62C75.5 41.1 80.8 29.7 82 24C83.2 29.7 88.5 41.1 88.5 62Z"/><circle cx="82" cy="21.4" r="2.3"/><rect x="93.5" y="70" width="13" height="78"/><path d="M93.5 70C93.5 50.2 98.8 39.4 100 34C101.2 39.4 106.5 50.2 106.5 70Z"/><circle cx="100" cy="31.4" r="2.3"/><rect x="114.0" y="84" width="12" height="64"/><path d="M114.0 84C114.0 67.5 118.8 58.5 120 54C121.2 58.5 126.0 67.5 126.0 84Z"/><circle cx="120" cy="51.4" r="2.3"/><path d="M70 -3.5v7.5M66.4 0h7.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="2" y="148" width="136" height="2.4"/><g style="fill:var(--paper)"><rect x="14.0" y="83.2" width="12" height="1.6"/><rect x="15.8" y="75.6" width="8.4" height="1.1"/><rect x="17.5" y="68.4" width="5.0" height="1.1"/><rect x="33.5" y="69.2" width="13" height="1.6"/><rect x="35.5" y="59.9" width="9.1" height="1.1"/><rect x="37.3" y="51.3" width="5.5" height="1.1"/><rect x="38.9" y="78" width="2.2" height="10" rx="1.1"/><rect x="51.5" y="61.2" width="13" height="1.6"/><rect x="53.5" y="51.4" width="9.1" height="1.1"/><rect x="55.3" y="42.2" width="5.5" height="1.1"/><rect x="56.9" y="70" width="2.2" height="10" rx="1.1"/><rect x="56.9" y="88" width="2.2" height="10" rx="1.1"/><rect x="75.5" y="61.2" width="13" height="1.6"/><rect x="77.5" y="51.4" width="9.1" height="1.1"/><rect x="79.3" y="42.2" width="5.5" height="1.1"/><rect x="80.9" y="70" width="2.2" height="10" rx="1.1"/><rect x="80.9" y="88" width="2.2" height="10" rx="1.1"/><rect x="93.5" y="69.2" width="13" height="1.6"/><rect x="95.5" y="59.9" width="9.1" height="1.1"/><rect x="97.3" y="51.3" width="5.5" height="1.1"/><rect x="98.9" y="78" width="2.2" height="10" rx="1.1"/><rect x="114.0" y="83.2" width="12" height="1.6"/><rect x="115.8" y="75.6" width="8.4" height="1.1"/><rect x="117.5" y="68.4" width="5.0" height="1.1"/><rect x="65.0" y="39.2" width="10" height="1.6"/><rect x="66.5" y="31.6" width="7.0" height="1.1"/><rect x="67.9" y="24.4" width="4.2" height="1.1"/><rect x="68.9" y="48" width="2.2" height="10" rx="1.1"/><rect x="68.9" y="66" width="2.2" height="10" rx="1.1"/><rect x="68.9" y="84" width="2.2" height="10" rx="1.1"/><rect x="17" y="110" width="3" height="6" rx="1.5"/><rect x="26" y="110" width="3" height="6" rx="1.5"/><rect x="35" y="110" width="3" height="6" rx="1.5"/><rect x="44" y="110" width="3" height="6" rx="1.5"/><rect x="53" y="110" width="3" height="6" rx="1.5"/><rect x="89" y="110" width="3" height="6" rx="1.5"/><rect x="98" y="110" width="3" height="6" rx="1.5"/><rect x="107" y="110" width="3" height="6" rx="1.5"/><rect x="116" y="110" width="3" height="6" rx="1.5"/><path d="M32 148V128a8 8 0 0 1 16 0V148Z"/><path d="M92 148V128a8 8 0 0 1 16 0V148Z"/><path d="M60 148V122a10 10 0 0 1 20 0V148Z"/></g></svg>`};
+  const PLACES = {
+    barcelona:{ name:'Barna', lat:41.3874, lon:2.1686, radius:35, landmark:'sagrada', landmarkName:'Sagrada Família',
+      mean:[9.9,10.7,12.3,14.5,17.7,21.5,24.5,24.5,21.4,17.7,13.4,10.5] }
+  };
+  const DIURNAL = {dawn:-3, morning:0, afternoon:3, night:-1};
+  const cap = x => x.charAt(0).toUpperCase() + x.slice(1);
+  const GEN = {
+    es:{
+      adj:(f) => ({cold:'fría',cool:'fresquita',mild:'suave',pleasant:'agradable',warm:'cálida',hot:'calurosa'})[f],
+      slot:{dawn:'madrugada',morning:'mañana',afternoon:'tarde',night:'noche'},
+      wx:{rain:'lluvia',storm:'tormenta',snow:'nieve',fog:'niebla'},
+      stem:(sl,a,C) => ({morning:`Se ha levantado una mañana ${a} en ${C}`,afternoon:`Qué tarde más ${a} en ${C}`,night:`Noche ${a} en ${C}`,dawn:`Madrugada ${a} en ${C}`})[sl],
+      wstem:(sl,w,C) => `${cap(GEN.es.slot[sl])} de ${w} en ${C}`,
+      warm:m => `, y eso que es ${m}`, cold:m => `, con más frío del normal para ser ${m}`,
+      q:{morning:'¿Qué se cuece hoy?',afternoon:'¿Qué se cuece esta tarde?',night:'¿Qué se cuece esta noche?',dawn:'¿Qué se cuece a estas horas?'},
+      exOpen:'¡',
+      qt:{calm:{morning:'¿Qué se cuece hoy, sin prisa?',afternoon:'¿Qué se cuece esta tarde, con calma?',night:'¿Qué se cuece esta noche, sin prisa?',dawn:'¿Qué se cuece a estas horas, en voz baja?'},
+          lively:{morning:'¡Cuéntame! ¿Qué se cuece hoy?',afternoon:'¡Dispara! ¿Qué se cuece esta tarde?',night:'¡Venga! ¿Qué se cuece esta noche?',dawn:'¡Qué energía! ¿Qué se cuece?'}},
+      plain:{morning:C=>`Buenos días desde ${C}. ¿Qué se cuece hoy?`,afternoon:C=>`Buenas tardes desde ${C}. ¿Qué se cuece esta tarde?`,night:C=>`Buenas noches desde ${C}. ¿Qué se cuece esta noche?`,dawn:C=>`${C} duerme, ¿y tú? ¿Qué se cuece?`}
+    },
+    ca:{
+      adj:(f,sl) => { const m = sl === 'morning'; return ({cold:m?'fred':'freda',cool:m?'fresquet':'fresqueta',mild:'suau',pleasant:'agradable',warm:m?'càlid':'càlida',hot:m?'xafogós':'xafogosa'})[f]; },
+      slot:{dawn:'matinada',morning:'matí',afternoon:'tarda',night:'nit'},
+      wx:{rain:'pluja',storm:'tempesta',snow:'neu',fog:'boira'},
+      stem:(sl,a,C) => ({morning:`Ha sortit un matí ${a} a ${C}`,afternoon:`Quina tarda més ${a} a ${C}`,night:`Nit ${a} a ${C}`,dawn:`Matinada ${a} a ${C}`})[sl],
+      wstem:(sl,w,C) => `${cap(GEN.ca.slot[sl])} de ${w} a ${C}`,
+      warm:m => `, i això que som a ${m}`, cold:m => `, amb més fred del normal per ser ${m}`,
+      q:{morning:'Què es cuina avui?',afternoon:'Què es cuina aquesta tarda?',night:'Què es cuina aquesta nit?',dawn:'Què es cuina a aquestes hores?'},
+      qt:{calm:{morning:'Què es cuina avui, sense pressa?',afternoon:'Què es cuina aquesta tarda, amb calma?',night:'Què es cuina aquesta nit, sense pressa?',dawn:'Què es cuina a aquestes hores, en veu baixa?'},
+          lively:{morning:'Explica’m! Què es cuina avui?',afternoon:'Dispara! Què es cuina aquesta tarda?',night:'Au, va! Què es cuina aquesta nit?',dawn:'Quina energia! Què es cuina?'}},
+      plain:{morning:C=>`Bon dia des de ${C}. Què es cuina avui?`,afternoon:C=>`Bona tarda des de ${C}. Què es cuina aquesta tarda?`,night:C=>`Bona nit des de ${C}. Què es cuina aquesta nit?`,dawn:C=>`${C} dorm, i tu? Què es cuina?`}
+    },
+    en:{
+      adj:(f) => ({cold:'chilly',cool:'cool',mild:'mild',pleasant:'pleasant',warm:'warm',hot:'scorching'})[f],
+      slot:{dawn:'early morning',morning:'morning',afternoon:'afternoon',night:'night'},
+      wx:{rain:'rainy',storm:'stormy',snow:'snowy',fog:'foggy'},
+      stem:(sl,a,C) => `A ${a} ${GEN.en.slot[sl]} in ${C}`,
+      wstem:(sl,w,C) => `A ${w} ${GEN.en.slot[sl]} in ${C}`,
+      warm:m => `, and it’s ${m}, no less`, cold:m => `, colder than usual for ${m}`,
+      q:{morning:'What’s cooking today?',afternoon:'What’s cooking this afternoon?',night:'What’s cooking tonight?',dawn:'What’s cooking at this hour?'},
+      qt:{calm:{morning:'What’s cooking today, no rush?',afternoon:'What’s cooking this afternoon, nice and easy?',night:'What’s cooking tonight, no rush?',dawn:'What’s cooking at this hour, softly?'},
+          lively:{morning:'Tell me everything! What’s cooking today?',afternoon:'Hit me! What’s cooking this afternoon?',night:'Come on! What’s cooking tonight?',dawn:'Such energy! What’s cooking?'}},
+      plain:{morning:C=>`Good morning from ${C}. What’s cooking today?`,afternoon:C=>`Good afternoon from ${C}. What’s cooking this afternoon?`,night:C=>`Good evening from ${C}. What’s cooking tonight?`,dawn:C=>`${C} is asleep, and you? What’s cooking?`}
+    }
+  };
+
+  const qs = new URLSearchParams(location.search);   // ?city=barcelona&temp=20&code=0&hour=9&month=11 para probar
+  function getNow(){
+    const d = new Date();
+    if (qs.has('month')){ d.setDate(15); d.setMonth(+qs.get('month') - 1); }
+    if (qs.has('hour')) d.setHours(+qs.get('hour'));
+    return d;
+  }
+  function feelOf(t, slot){
+    const e = t + (slot === 'night' || slot === 'dawn' ? 4 : 0);   // de noche el mismo número se siente más fresco
+    return e < 7 ? 'cold' : e < 14 ? 'cool' : e < 18 ? 'mild' : e < 26 ? 'pleasant' : e < 32 ? 'warm' : 'hot';
+  }
+  function precipOf(code){
+    if (code == null) return null;
+    if ([95,96,99].includes(code)) return 'storm';
+    if ((code >= 71 && code <= 77) || code === 85 || code === 86) return 'snow';
+    if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return 'rain';
+    if (code === 45 || code === 48) return 'fog';
+    return null;
+  }
+  function compose(pl, now, wx){
+    const G = GEN[lang], slot = slotOf(now), C = pl.name;
+    if (!wx) return G.plain[slot](C);
+    const tone = toneNow(), dot = tone === 'calm' ? '…' : tone === 'lively' ? '!' : '.', pre = tone === 'lively' ? (G.exOpen || '') : '';
+    const q = (G.qt[tone] && G.qt[tone][slot]) || G.q[slot];
+    const p = precipOf(wx.code);
+    if (p) return `${pre}${G.wstem(slot, G.wx[p], C)}${dot} ${q}`;
+    const month = now.getMonth(), mname = new Intl.DateTimeFormat(lang, {month:'long'}).format(now);
+    const feel = feelOf(wx.t, slot);
+    const mean = pl.mean[month], anomaly = wx.t - (mean + DIURNAL[slot]);   // frente a lo habitual a esa hora
+    let tail = '';
+    if (anomaly >= 3.5 && ['mild','pleasant','warm'].includes(feel) && mean <= 16) tail = G.warm(mname);
+    else if (anomaly <= -3.5 && ['cold','cool'].includes(feel) && mean >= 14) tail = G.cold(mname);
+    return `${pre}${G.stem(slot, G.adj(feel, slot), C)}${tail}${dot} ${q}`;
+  }
+
+  let place = null, weather = null, weatherTry = 0;
+  const debug = qs.has('city') && PLACES[qs.get('city')];
+  if (debug){ place = PLACES[qs.get('city')]; if (qs.has('temp')) weather = {t:+qs.get('temp'), code:qs.has('code') ? +qs.get('code') : 0}; }
+
+  function updatePlaceholder(){
+    const lm = $('#landmark');
+    if (place){
+      lm.innerHTML = LANDMARKS[place.landmark]; lm.setAttribute('aria-label', place.landmarkName); lm.hidden = false;
+    } else { lm.hidden = true; lm.innerHTML = ''; }
+    const txt = place ? compose(place, getNow(), weather) : null;
+    if (msg.placeholder !== (txt || T.placeholder)){ msg.placeholder = txt || T.placeholder; autosize(); showTranscript(); }
+  }
+
+  async function fetchWeather(lat, lon){
+    weatherTry = Date.now();
+    try{
+      const u = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(2)}&longitude=${lon.toFixed(2)}&current=temperature_2m,weather_code&timezone=auto`;
+      const r = await fetch(u); if (!r.ok) return;
+      const c = (await r.json()).current;
+      if (c && typeof c.temperature_2m === 'number'){ weather = {t:c.temperature_2m, code:c.weather_code}; updatePlaceholder(); }
+    }catch{}
+  }
+  function locate(c){
+    if (debug) return;
+    const here = {latitude:c.latitude, longitude:c.longitude};
+    let found = null;
+    for (const p of Object.values(PLACES)) if (haversine(here, {latitude:p.lat, longitude:p.lon}) <= p.radius * 1000) found = p;
+    if (found !== place){ place = found; weather = null; weatherTry = 0; updatePlaceholder(); }
+    if (place && Date.now() - weatherTry > 15 * 60000) fetchWeather(c.latitude, c.longitude);
+  }
+
+  /* ================= LUZ Y RUIDO: tema claro/oscuro y tono ================= */
+  // Sin AGC ni supresión: así el micrófono mide el ambiente real (valores sin calibrar por dispositivo).
+  const RAW_AUDIO = {echoCancellation:false, noiseSuppression:false, autoGainControl:false};
+  let noiseTier = 'mid', lightTier = 'mid', lightEma = null, themeNow = null;
+  function tierNoise(l){               // RMS 0..1 con histéresis para que no parpadee
+    if (noiseTier === 'loud'){ if (l < .04) noiseTier = l < .012 ? 'quiet' : 'mid'; }
+    else if (noiseTier === 'quiet'){ if (l > .02) noiseTier = l > .055 ? 'loud' : 'mid'; }
+    else if (l > .055) noiseTier = 'loud'; else if (l < .012) noiseTier = 'quiet';
+    return noiseTier;
+  }
+  function tierLight(y){               // luminancia media de la cámara 0..255
+    if (lightTier === 'dark'){ if (y > 60) lightTier = y > 80 ? 'bright' : 'mid'; }
+    else if (lightTier === 'bright'){ if (y < 65) lightTier = y < 45 ? 'dark' : 'mid'; }
+    else if (y < 45) lightTier = 'dark'; else if (y > 80) lightTier = 'bright';
+    return lightTier;
+  }
+  function toneNow(){                  // calmado solo con poca luz Y poco ruido; enérgico solo con luz Y ruido
+    if (sens.light === null || sens.noise === null) return 'neutral';
+    const e = (sens.light === 'dark' ? -1 : sens.light === 'bright' ? 1 : 0) + (sens.noise === 'quiet' ? -1 : sens.noise === 'loud' ? 1 : 0);
+    return e <= -2 ? 'calm' : e >= 2 ? 'lively' : 'neutral';
+  }
+  function applyTheme(){
+    let t = themeNow;
+    if (sens.light === 'dark') t = 'dark';
+    else if (sens.light === 'bright') t = 'light';
+    else if (t === null) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    if (t === themeNow) return;
+    const first = themeNow === null; themeNow = t;
+    document.documentElement.dataset.theme = t;
+    const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = t === 'dark' ? '#151513' : '#DEDED9';
+    if (!first && !reduceMotion.matches){
+      const root = document.documentElement;
+      root.classList.remove('flash'); void root.offsetWidth; root.classList.add('flash');
+      const h = e => { if (e.target === root){ root.classList.remove('flash'); root.removeEventListener('animationend', h); } };
+      root.addEventListener('animationend', h);
+    }
+  }
+
+  /* ================= MODOS DE ENTRADA: escribir · voz · conversación ================= */
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const dbg = ['activity','noisy','headphones','light','noise'].some(k => qs.has(k));     // ?activity=walk|car|still&noisy=1&headphones=1
+  const canSpeak = !!SR || dbg;
+  const speechLocale = lang === 'ca' ? 'ca-ES' : lang === 'es' ? 'es-ES' : (/^en/i.test(navigator.language || '') ? navigator.language : 'en-US');
+  const PN = {whatsapp:'WhatsApp', teams:'Teams', x:'X'};
+  const transcript = $('#transcript'), micBtn = $('#micBtn'), vStatus = $('#voiceStatus');
+  const toWrite = $('#toWrite'), clearBtn = $('#clearBtn'), live = $('#modeLive'), fieldEl = $('.field');
+  toWrite.textContent = T.modeWrite; clearBtn.textContent = T.clear;
+
+  let mode = 'write', manual = null, cand = null, candSince = 0, lastTyped = 0;
+  let lastVehicleAt = 0, speedVehicle = false, carConn = false;
+  let rec = null, listening = false, convActive = false, convPick = null, ideasList = [];
+
+  function showTranscript(){
+    const v = msg.value.trim();
+    transcript.textContent = v || msg.placeholder;
+    transcript.classList.toggle('empty', !v);
+    clearBtn.hidden = !v || mode === 'write';
+  }
+  const setStatus = t => { vStatus.textContent = t || ''; };
+  function updateMic(){
+    const conv = mode === 'conversation', on = conv ? convActive : listening;
+    micBtn.classList.toggle('live', on);
+    micBtn.setAttribute('aria-label', on ? T.micStop : (conv ? T.tapConv : T.micTalk));
+    if (mode !== 'write' && !on) setStatus(canSpeak ? (conv ? T.tapConv : T.micTalk) : T.noSpeech);
+  }
+
+  /* --- selección de modo según contexto --- */
+  const ctxKey = () => [sens.headphones, sens.vehicle, sens.moving, sens.noisy].map(v => v ? 1 : 0).join('');
+  function resolveMode(){
+    if (!canSpeak) return 'write';
+    if (sens.headphones || sens.vehicle) return 'conversation';
+    if (sens.moving) return sens.noisy ? 'write' : 'voice';
+    return 'write';
+  }
+  function setMode(m){
+    if (m === mode) return;
+    stopVoice(); mode = m;
+    document.body.dataset.mode = m;
+    toWrite.hidden = m === 'write';
+    updateMic(); render();
+    live.textContent = T.modeNames[m];
+    if (!reduceMotion.matches){
+      fieldEl.classList.remove('flash'); void fieldEl.offsetWidth; fieldEl.classList.add('flash');
+      fieldEl.addEventListener('animationend', () => fieldEl.classList.remove('flash'), {once:true});
+    }
+  }
+  function evaluateMode(){
+    let target;
+    if (manual && manual.key === ctxKey()) target = manual.mode;
+    else { manual = null; target = resolveMode(); }
+    if (target === mode){ cand = null; return; }
+    if (cand !== target){ cand = target; candSince = Date.now(); }
+    const typing = mode === 'write' && msg.value.trim() && Date.now() - lastTyped < 5000;
+    if (Date.now() - candSince >= (dbg ? 0 : 6000) && !typing && !listening && !convActive){ cand = null; setMode(target); }
+  }
+  setInterval(evaluateMode, 1000);
+  function goWrite(){ manual = {mode:'write', key:ctxKey()}; setMode('write'); msg.focus(); }
+  toWrite.onclick = goWrite;
+  clearBtn.onclick = () => { msg.value = ''; autosize(); sync(); };
+
+  /* --- auriculares / coche por la ruta de audio (mejor esfuerzo: depende del navegador) --- */
+  const HP = /head(phone|set)|earbud|earphone|airpods|\bbuds\b|auricular|casc|bluetooth/i;
+  const CAR = /car ?play|android ?auto|\bcar\b|vehicle|coche|cotxe|uconnect|\bsync\b/i;
+  async function checkRoute(){
+    try{
+      const ds = await navigator.mediaDevices.enumerateDevices();
+      const labels = ds.filter(d => d.kind === 'audiooutput' || d.kind === 'audioinput').map(d => d.label).filter(Boolean);
+      if (!labels.length) return;
+      carConn = labels.some(l => CAR.test(l)); applyVehicle();
+      setSens('headphones', !carConn && labels.some(l => HP.test(l) && !/earpiece|speakerphone|built-?in|internal/i.test(l)));
+    }catch{}
+  }
+  if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) navigator.mediaDevices.addEventListener('devicechange', checkRoute);
+
+  /* --- voz: dictado --- */
+  function stopVoice(){
+    convActive = false; convPick = null;
+    try{ rec && rec.abort(); }catch{}
+    rec = null; listening = false;
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+  }
+  function dictate(){
+    if (listening){ try{ rec.stop(); }catch{} return; }
+    const base = msg.value.trim() ? msg.value.trim() + ' ' : '';
+    const r = new SR(); r.lang = speechLocale; r.continuous = true; r.interimResults = true;
+    let fin = '';
+    r.onresult = e => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++){
+        const t = e.results[i][0].transcript;
+        if (e.results[i].isFinal) fin += t; else interim += t;
+      }
+      msg.value = (base + fin + interim).trim(); autosize(); sync();
+    };
+    r.onerror = e => { if (/not-allowed|service-not-allowed/.test(e.error)) setStatus(T.noSpeech); };
+    r.onend = () => { listening = false; rec = null; updateMic(); };
+    try{ r.start(); rec = r; listening = true; setStatus(T.listening); updateMic(); }catch{}
+  }
+
+  /* --- voz: conversación --- */
+  const norm = x => x.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '');
+  const words = x => norm(x).match(/\p{L}+|\d+/gu) || [];
+  const NUM = {'1':1,uno:1,una:1,un:1,primera:1,primero:1,one:1,first:1,'2':2,dos:2,dues:2,segunda:2,segundo:2,segona:2,two:2,second:2,'3':3,tres:3,tercera:3,tercero:3,three:3,third:3};
+  const FILLER = new Set(['la','el','lo','opcion','opcio','option','numero','number','the','quiero','vull','i','want','por','favor','per','please','porfavor']);
+  function pickNumber(h){
+    const w = words(h); if (!w.length || w.length > 5) return null;
+    let n = null;
+    for (const x of w){ if (NUM[x]) n = n || NUM[x]; else if (!FILLER.has(x)) return null; }
+    return n;
+  }
+  const PLAT = [[/^(whatsapp|guasap|wasap|watsap|whats)$/,'whatsapp'],[/^(teams|tims|equipos)$/,'teams'],[/^(x|equis|ics|twitter)$/,'x']];
+  const YES = new Set(['si','vale','ok','okay','acord','claro','envia','envialo','enviar','adelante','endavant','yes','yeah','sure','send']);
+  const NO = new Set(['no','cancela','cancel','nope','para','atura','stop','borra','esborra']);
+  const WRITE = new Set(['escribir','escribirlo','escriure','write','editar','editarlo','edit','teclado','teclat','type']);
+  function platformIn(h){
+    const w = words(h); if (w.length > 6) return null;
+    for (const x of w) for (const [re, p] of PLAT) if (re.test(x)) return p;
+    return null;
+  }
+  function intent(h){
+    const w = words(h); if (w.length > 6) return null;
+    if (w.some(x => WRITE.has(x))) return 'write';
+    if (w.some(x => NO.has(x))) return 'no';
+    if (w.some(x => YES.has(x))) return 'yes';
+    return null;
+  }
+  const say = text => new Promise(res => {
+    if (!('speechSynthesis' in window)) return res();
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text); u.lang = speechLocale;
+    const tn = toneNow(); u.rate = tn === 'calm' ? .85 : tn === 'lively' ? 1.12 : 1; u.pitch = tn === 'calm' ? .9 : tn === 'lively' ? 1.1 : 1;
+    u.onend = u.onerror = () => res();
+    speechSynthesis.speak(u);
+  });
+  const listenOnce = (ms = 9000) => new Promise(res => {
+    if (!SR) return res(null);
+    const r = new SR(); r.lang = speechLocale; r.continuous = false; r.interimResults = false;
+    let got = null; const to = setTimeout(() => { try{ r.stop(); }catch{} }, ms);
+    r.onresult = e => { got = e.results[0][0].transcript; };
+    r.onerror = () => {};
+    r.onend = () => { clearTimeout(to); if (rec === r) rec = null; res(got); };
+    rec = r; try{ r.start(); }catch{ clearTimeout(to); res(null); }
+  });
+  function sendVia(p){
+    const t = msg.value.trim(); if (!t) return;
+    const url = links[p](t);
+    // sin toque del usuario el navegador bloquea pestañas nuevas: si falla, se navega en la misma
+    if (!window.open(url, '_blank', 'noopener')) location.assign(url);
+  }
+  async function convLoop(){
+    let state = msg.value.trim() ? 'confirm' : 'choose', misses = 0, needIntro = true;
+    while (convActive){
+      if (state === 'choose'){
+        if (needIntro){ setStatus(T.speaking); await say(`${msg.placeholder} ${T.conv.intro(ideasList.slice())}`); needIntro = false; }
+        if (!convActive) break;
+        const opts = ideasList.slice();
+        let heard = null;
+        if (!convPick){ setStatus(T.listening); heard = await listenOnce(); }
+        if (!convActive) break;
+        if (convPick){ convPick = null; autosize(); sync(); state = 'confirm'; continue; }
+        if (!heard){ if (++misses >= 2) break; await say(T.conv.noHear); continue; }
+        misses = 0;
+        if (intent(heard) === 'write'){ goWrite(); break; }
+        const n = pickNumber(heard);
+        if (n){
+          if (!opts[n-1]){ await say(T.conv.again); continue; }
+          msg.value = opts[n-1];
+        } else msg.value = heard.trim().charAt(0).toUpperCase() + heard.trim().slice(1);
+        autosize(); sync(); state = 'confirm';
+      } else {
+        const best = pickPlatform(msg.value) || 'whatsapp';
+        setStatus(T.speaking);
+        await say(T.conv.confirm(msg.value.trim(), PN[best]));
+        if (!convActive) break;
+        if (convPick){ convPick = null; continue; }
+        setStatus(T.listening);
+        const heard = await listenOnce();
+        if (!convActive) break;
+        if (convPick){ convPick = null; continue; }
+        if (!heard){ if (++misses >= 2) break; continue; }
+        misses = 0;
+        const p = platformIn(heard), it = intent(heard);
+        if (p){ sendVia(p); break; }
+        if (it === 'yes'){ sendVia(best); break; }
+        if (it === 'write'){ goWrite(); break; }
+        if (it === 'no'){ msg.value = ''; autosize(); sync(); state = 'choose'; needIntro = true; continue; }
+        await say(T.conv.again);
+      }
+    }
+  }
+  micBtn.addEventListener('click', () => {
+    if (!SR){ setStatus(T.noSpeech); return; }
+    if (mode === 'voice') dictate();
+    else if (mode === 'conversation'){
+      if (convActive){ stopVoice(); updateMic(); return; }
+      convActive = true; updateMic();
+      convLoop().finally(() => { convActive = false; updateMic(); });
+    }
+  });
+
+  if (dbg){
+    const a = qs.get('activity');
+    if (a){ sens.moving = a !== 'still'; sens.vehicle = a === 'car'; }
+    if (qs.has('noisy')) sens.noisy = qs.get('noisy') === '1';
+    if (qs.has('headphones')) sens.headphones = qs.get('headphones') === '1';
+    if (qs.has('noisy')) sens.noise = sens.noisy ? 'loud' : 'mid';
+    if (qs.has('noise')){ sens.noise = qs.get('noise'); sens.noisy = sens.noise === 'loud'; }   // quiet|mid|loud
+    if (qs.has('light')) sens.light = qs.get('light');                                           // dark|mid|bright
+  }
+
+  /* ================= ARRANQUE ================= */
+  render(); autosize();
+  evaluateMode(); updateMic();
+  setInterval(render, 60000);
+
+  const allowBtn = $('#permAllow'), skipBtn = $('#permSkip');
+  skipBtn.onclick = () => permDlg.close();
+  allowBtn.onclick = async () => {
+    allowBtn.disabled = skipBtn.disabled = true;
+    await enableContext();
+    allowBtn.disabled = skipBtn.disabled = false;
+    permDlg.close();
+  };
+
+  (async () => {
+    if (!window.isSecureContext){
+      const w = $('#permWarn'); w.textContent = T.permInsecure; w.hidden = false; allowBtn.disabled = true;
+      permDlg.showModal(); return;
+    }
+    if (await alreadyGranted()){ enableContext(); return; }
+    permDlg.showModal();
+  })();
+})();
+</script>
+</body>
+</html>
